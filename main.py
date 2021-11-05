@@ -1,3 +1,4 @@
+import sqlite3
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLabel, QPlainTextEdit
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -71,19 +72,36 @@ try:
             self.setWindowTitle('Поиск')
             self.setGeometry(100, 100, 750, 600)
             self.search = QPlainTextEdit(self)
-            self.search.resize(410, 30)
-            self.search.move(0, 0)
+            self.search.resize(360, 30)
+            self.search.move(0, 1)
+
             self.combo = QComboBox(self)
             self.combo.addItem('Категории')
             self.combo.addItem('Проекты и Кайзены')
             self.combo.addItem('Работники')
             self.combo.setFont(font)
-            self.combo.move(500, 0)
+            self.combo.move(500, 1)
             self.combo.resize(100, 30)
+
+
+            self.combo1 = QComboBox(self)
+            self.combo1.addItem('Критерии')
+            self.combo1.setEnabled(False)
+            self.combo1.setFont(font)
+            self.combo1.move(600, 1)
+            self.combo1.resize(150, 30)
+
+            self.btn_con = QPushButton(self)
+            self.btn_con.setText('✔')
+            self.btn_con.setFont(font)
+            self.btn_con.move(450, 0)
+            self.btn_con.resize(50, 32)
+            self.btn_con.clicked.connect(self.con1)
+
             self.btn_search = QPushButton(self)
             self.btn_search.setText('Поиск')
             self.btn_search.setFont(font)
-            self.btn_search.move(410, 0)
+            self.btn_search.move(360, 0)
             self.btn_search.resize(90, 32)
             # self.btn_search.clicked.connect(self.refresh(self.combo.currentText()))
             self.btn_search.clicked.connect(self.refresh)
@@ -98,6 +116,29 @@ try:
             self.model.setTable("users")
             self.model.select()
             self.tableView.setModel(self.model)
+            self.con = sqlite3.connect('main.db')
+            self.cur = self.con.cursor()
+
+        def con1(self):
+            self.combo1.setEnabled(True)
+            self.combo1.clear()
+            combotext = self.combo.currentText()
+            if combotext == 'Работники':
+                self.combo1.addItem('Критерии')
+                self.combo1.addItem('Ф.И.О работника')
+                self.combo1.addItem('Должность')
+                self.combo1.addItem('Проекты')
+                self.update()
+
+            else:
+                self.combo1.addItem('Критерии')
+                self.combo1.addItem('тема')
+                self.combo1.addItem('готовность')
+                self.combo1.addItem('Место')
+                self.combo1.addItem('Описание')
+                self.combo1.addItem('автор')
+                self.combo1.addItem('соавтор')
+                self.update()
 
         def refresh(self):
             db = QSqlDatabase.addDatabase('QSQLITE')
@@ -107,10 +148,12 @@ try:
             combotext = self.combo.currentText()
             if combotext == 'Работники':
                 table = 'users'
+
             elif combotext == 'Проекты и Кайзены':
                 table = 'projects'
+
             else:
-                table = 'none'
+                table = 'projects'
             self.model.setTable(table)
             self.model.select()
             self.tableView.setModel(self.model)
