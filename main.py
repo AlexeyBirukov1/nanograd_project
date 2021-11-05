@@ -12,9 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QLabel,
     QPlainTextEdit, QMessageBox, QFileDialog, QComboBox
 
 
-
-
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("Проекты и Кайзены")
@@ -83,15 +80,15 @@ class Window2(QWidget):
 
         self.search = QPlainTextEdit(self)
         self.search.resize(410, 30)
-        self.search.move(0, 0)
+        self.search.move(0, 1)
 
         self.combo = QComboBox(self)
         self.combo.addItem('Категории')
         self.combo.addItem('Проекты и Кайзены')
         self.combo.addItem('Работники')
         self.combo.setFont(font)
-        self.combo.move(500, 0)
-        self.combo.resize(100, 30)
+        self.combo.move(500, 1)
+        self.combo.resize(200, 30)
 
         self.btn_search = QPushButton(self)
         self.btn_search.setText('Поиск')
@@ -102,6 +99,7 @@ class Window2(QWidget):
         tableView = QTableView(self)
         tableView.resize(750, 400)
         tableView.move(0, 45)
+
 
 
 class Window3(QWidget):
@@ -135,6 +133,12 @@ class Window3(QWidget):
         tableView = QTableView(self)
         tableView.resize(750, 400)
         tableView.move(0, 45)
+
+
+def Edit(QWidget):
+    def __init__(self):
+        super(Window3, self).__init__()
+        self.setWindowTitle('Редактирование')
 
 
 
