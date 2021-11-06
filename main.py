@@ -115,7 +115,7 @@ class Window2(QWidget):
     def edit(self):
         self.tableView.setEnabled(True)
     def add_1(self):
-        self.w3 = Window3()
+        self.w3 = Window3(self)
         self.w3.show()
     def con1(self):
         global a
@@ -184,7 +184,8 @@ class Window2(QWidget):
         self.tableView.setModel(self.setquery)
         pass
 class Window3(QWidget):
-    def __init__(self):
+    def __init__(self, par):
+        self.par = par
         super(Window3, self).__init__()
         self.setGeometry(100, 100, 410, 450)
         global a
@@ -245,14 +246,18 @@ class Window3(QWidget):
         textEdit = self.field.toPlainText()
         textEdit1 = self.field1.toPlainText()
         textEdit2 = self.field2.toPlainText()
-        print(self.textEdit, self.textEdit2, self.textEdit1)
+        print(textEdit, textEdit1, textEdit2)
         con = sqlite3.connect('main.db')
-        cur = self.con.cursor()
-        cur.execute("INSERT INTO users(name, role, projs) VALUES(?, ?, ?)", (textEdit,
-                                                                             textEdit1,
-                                                                             textEdit2))
+        cur = con.cursor()
+        cur.execute(f'INSERT INTO users (name, role, projs) VALUES ("{textEdit}", "{textEdit1}", "{textEdit2}")')
         con.commit()
+        self.par.refresh()
         self.close()
+
+# con = sqlite3.connect('main.db')
+# cur = con.cursor()
+# cur.execute(f' ALTER TABLE users MODIFY COLLUMN id SET AUTO_INCREMENT true')
+# con.commit()
 
 if __name__ == "__main__":
     try:
