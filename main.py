@@ -1,5 +1,6 @@
 import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5.QtSql import *
 from PyQt5.QtWidgets import QWidget, QPushButton, \
@@ -25,6 +26,14 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(230, 80, 741, 111))
+
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(580, 500, 191, 91))
+        self.label_2.setObjectName("label_2")
+
+        pixmap = QPixmap("logo.png")
+        self.label_2.setPixmap(pixmap)
+
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label.setFont(font)
@@ -71,12 +80,12 @@ class Window2(QWidget):
         self.combo1.setFont(font)
         self.combo1.move(600, 1)
         self.combo1.resize(150, 30)
-        self.btn_con = QPushButton(self)
-        self.btn_con.setText('✔')
-        self.btn_con.setFont(font)
-        self.btn_con.move(450, 0)
-        self.btn_con.resize(50, 32)
-        self.btn_con.clicked.connect(self.con1)
+        # self.btn_con = QPushButton(self)
+        # self.btn_con.setText('✔')
+        # self.btn_con.setFont(font)
+        # self.btn_con.move(450, 0)
+        # self.btn_con.resize(50, 32)
+        # self.btn_con.clicked.connect(self.con1)
         self.btn_search = QPushButton(self)
         self.btn_search.setText('Поиск')
         self.btn_search.setFont(font)
@@ -90,13 +99,13 @@ class Window2(QWidget):
         self.btn_add.resize(90, 32)
         self.btn_add.clicked.connect(self.add_1)
         self.btn_add.setEnabled(False)
-        self.btn_edit = QPushButton(self)
-        self.btn_edit.setText('Редактировать')
-        self.btn_edit.setFont(font)
-        self.btn_edit.move(295, 550)
-        self.btn_edit.resize(100, 32)
-        self.btn_edit.clicked.connect(self.edit)
-        self.btn_edit.setEnabled(False)
+        # self.btn_edit = QPushButton(self)
+        # self.btn_edit.setText('Редактировать')
+        # self.btn_edit.setFont(font)
+        # self.btn_edit.move(295, 550)
+        # self.btn_edit.resize(100, 32)
+        # self.btn_edit.clicked.connect(self.edit)
+        # self.btn_edit.setEnabled(False)
         #-----------------------------------------------
         db = QSqlDatabase.addDatabase('QSQLITE')
         self.tableView = QTableView(self)
@@ -112,6 +121,9 @@ class Window2(QWidget):
         self.tableView.setModel(self.model)
         self.con = sqlite3.connect('main.db')
         self.cur = self.con.cursor()
+        self.tableView.setEnabled(True)
+        self.combo.currentTextChanged.connect(self.refresh)
+        self.combo.currentTextChanged.connect(self.con1)
     def edit(self):
         self.tableView.setEnabled(True)
     def add_1(self):
