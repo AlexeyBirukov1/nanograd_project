@@ -27,12 +27,12 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(230, 80, 741, 111))
 
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(580, 500, 191, 91))
-        self.label_2.setObjectName("label_2")
-
-        pixmap = QPixmap("logo.png")
-        self.label_2.setPixmap(pixmap)
+        # self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        # self.label_2.setGeometry(QtCore.QRect(500, 500, 591, 391))
+        # self.label_2.setObjectName("label_2")
+        #
+        # pixmap = QPixmap("logo.png")
+        # self.label_2.setPixmap(pixmap)
 
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -133,7 +133,7 @@ class Window2(QWidget):
         global a
         self.btn_add.setEnabled(True)
         self.combo1.setEnabled(True)
-        self.btn_edit.setEnabled(True)
+        # self.btn_edit.setEnabled(True)
         self.combo1.clear()
         combotext = self.combo.currentText()
         if combotext == 'Работники':
